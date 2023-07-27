@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="//unpkg.com/alpinejs" defer></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Greet API Widget</h1>
+
+    <div x-data="{ username: 'yoda', greeting: 'Hello', 
+        language: 'english',
+        greet() {
+
+            //call api and get greeting back
+
+            axios.get(`/api/greet?username=${this.username}&language=${this.language}`)
+                .then(result => {
+                    console.log(result.data)
+
+                    if (result.data.error) {
+                        this.greeting = result.data.error
+                    } 
+                    else{
+                        this.greeting = result.data.message
+                    }
+                })
+        } 
+    }">
+
+        <div x-text="greeting">
+            
+        </div>
+
+        <div class="list">
+            <ul>
+                <li>
+                    <input type="radio" x-model="language" value="english" id="english">
+                    <label for="english">English</label>
+                </li>
+                <li>
+                    <input type="radio" x-model="language" value="xhosa" id="xhosa">
+                    <label for="xhosa">Xhosa</label>
+                </li>
+                <li>
+                    <input type="radio" x-model="language" value="Zulu" id="Zulu">
+                    <label for="Zulu">Zulu</label>
+                </li>
+            </ul>
+        </div>
+
+        <input type="text" x-model="username">
+        <input type="button" value="Greet" @click="greet()">
+
+        <div>
+            <h2>Add Language</h2>
+            <div>
+                Language: <input type="text" x-model="new_language" placeholder=""
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>
