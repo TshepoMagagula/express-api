@@ -64,7 +64,7 @@ app.post('/api/greet', function(req, res){
     })
 }) */
 
-const PORT = 4009;
+const PORT = process.env.PORT || 4009;
 
 app.listen(PORT, function () {
     console.log(`app started ${PORT}`)
